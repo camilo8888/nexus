@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexusPath Solutions | Consultoría & Desarrollo Tecnológico</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Paleta de colores tecnológica y futurista */
+        :root {
+            --primary: #00d2ff;
+            --secondary: #0066ff;
+            --dark-bg: #0a0f1d;
+            --card-bg: #131a30;
+            --text-light: #ffffff;
+            --text-gray: #8a99ad;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 20px;
+        }
+
+        /* Header / Navegación */
+        header {
+            background-color: rgba(10, 15, 29, 0.9);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 20px 0;
+            transition: padding 0.3s;
+        }
+
+        header.scroll-active {
+            padding: 12px 0;
+            background-color: rgba(10, 15, 29, 0.98);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background: radial-gradient(circle at 80% 20%, rgba(0, 102, 255, 0.15) 0%, transparent 50%);
+        }
+
+        .hero-content {
+            max-width: 650px;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--text-gray);
+            margin-bottom: 35px;
+            line-height: 1.6;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, var(--secondary), var(--primary));
+            color: white;
+            padding: 14px 32px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 210, 255, 0.4);
+        }
+
+        /* Secciones Generales */
+        section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            color: var(--text-gray);
+            font-size: 16px;
+        }
+
+        /* Grid de Servicios */
+        .grid-servicios {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 40px 30px;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 210, 255, 0.3);
+        }
+
+        .card-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            color: var(--text-gray);
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* Sección Quiénes Somos (Features) */
+        .about-flex {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text p {
+            color: var(--text-gray);
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .about-interactive {
+            flex: 1;
+            background: linear-gradient(135deg, var(--card-bg) 0%, #1e294b 100%);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        /* Formulario Corporativo */
+        .contacto-container {
+            max-width: 700px;
+            margin: auto;
+            background-color: var(--card-bg);
+            padding: 50px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: var(--text-gray);
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            background-color: rgba(10, 15, 29, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 14px;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        footer {
+            background-color: #060912;
+            padding: 40px 0;
+            text-align: center;
+            color: var(--text-gray);
+            font-size: 14px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Clases de animación Scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsivo */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 40px; }
+            nav ul { display: none; } /* En producción agregarías un menú hamburguesa */
+            .about-flex { flex-direction: column; }
+            .contacto-container { padding: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header id="navbar">
+        <div class="container">
+            <div class="logo">NexusPath<span style="color:var(--text-light)">Solutions</span></div>
+            <nav>
+                <ul>
+                    <li><a href="#inicio" class="nav-link active">Inicio</a></li>
+                    <li><a href="#servicios" class="nav-link">Servicios</a></li>
+                    <li><a href="#nosotros" class="nav-link">Nosotros</a></li>
+                    <li><a href="#contacto" class="nav-link">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO -->
+        <section id="inicio" class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Trazamos el <span>Camino Digital</span> de tu Empresa</h1>
+                    <p>Diseñamos, desarrollamos y escalamos ecosistemas tecnológicos a la medida. Conectamos tus objetivos comerciales con soluciones de software e infraestructura inteligente.</p>
+                    <a href="#contacto" class="btn">Iniciar un Proyecto</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SERVICIOS -->
+        <section id="servicios">
+            <div class="container">
+                <div class="section-title reveal">
+                    <h2>Nuestras Soluciones</h2>
+                    <p>Innovación tecnológica diseñada para impulsar tu rendimiento y competitividad.</p>
+                </div>
+                
+                <div class="grid-servicios">
+                    <div class="card reveal">
+                        <span class="card-icon">💻</span>
+                        <h3>Desarrollo a la Medida</h3>
+                        <p>Construimos plataformas web y aplicaciones móviles robustas, escalables y seguras utilizando las últimas tecnologías de la industria.</p>
+                    </div>
+                    <div class="card reveal">
+                        <span class="card-icon">☁️</span>
+                        <h3>Arquitectura Cloud</h3>
+                        <p>Migración, optimización y gestión de infraestructura en la nube (AWS, Azure, Google Cloud) para garantizar disponibilidad total.</p>
+                    </div>
+                    <div class="card reveal">
+                        <span class="card-icon">🧠</span>
+                        <h3>Consultoría IT</h3>
+                        <p>Analizamos los flujos técnicos actuales de tu compañía para trazar la ruta de transformación digital más eficiente.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NOSOTROS -->
+        <section id="nosotros" style="background-color: #0b1122;">
+            <div class="container">
+                <div class="about-flex">
+                    <div class="about-text reveal">
+                        <h2 style="font-size: 36px; margin-bottom: 20px;">Por qué elegir NexusPath</h2>
+                        <p>En <strong>NexusPath Solutions</strong> no somos solo proveedores de software, somos tus socios estratégicos en tecnología. Nos enfocamos en crear el nexo entre los problemas complejos de negocio y soluciones de código limpio y ágil.</p>
+                        <p>Garantizamos transparencia, metodologías ágiles (Scrum) y arquitecturas preparadas para soportar el crecimiento masivo de tu empresa a futuro.</p>
+                    </div>
+                    <div class="about-interactive reveal" id="box-interactiva">
+                        <h3 style="margin-bottom: 15px; color: var(--primary);">Interacciones Procesadas</h3>
+                        <div id="counter" style="font-size: 64px; font-weight: 800; color: white; margin: 20px 0;">0</div>
+                        <p style="color: var(--text-gray); font-size: 14px;">Mueve el cursor dentro de esta tarjeta para ver la adaptabilidad dinámica.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACTO -->
+        <section id="contacto">
+            <div class="container">
+                <div class="section-title reveal">
+                    <h2>Escríbenos</h2>
+                    <p>Cuéntanos tu idea o reto tecnológico. Nuestro equipo te responderá en menos de 24 horas.</p>
+                </div>
+
+                <div class="contacto-container reveal">
+                    <form id="nexus-form">
+                        <div class="form-group">
+                            <label for="name">Nombre Completo</label>
+                            <input type="text" id="name" required placeholder="Ej. Carlos Mendoza">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Correo Electrónico Corporativo</label>
+                            <input type="email" id="email" required placeholder="carlos@empresa.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="msg">Detalles del Proyecto</label>
+                            <textarea id="msg" rows="5" required placeholder="Describe brevemente lo que requieres construir o asesorar..."></textarea>
+                        </div>
+                        <button type="submit" class="btn" style="width: 100%;">Enviar Requerimiento</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 NexusPath Solutions. Todos los derechos reservados. Optimizando el futuro digital.</p>
+        </div>
+    </footer>
+
+    <!-- LÓGICA JAVASCRIPT: EFECTOS PREMIUM -->
+    <script>
+        // 1. ANIMACIÓN DEL NAVBAR AL HACER SCROLL
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                header.classList.add('scroll-active');
+            } else {
+                header.classList.remove('scroll-active');
+            }
+        });
+
+        // 2. DETECTOR DE SECCIÓN ACTIVA EN EL MENÚ
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // 3. REVEAL: EFECTO DE APARICIÓN ELEGANTE
+        function revealElements() {
+            const reveals = document.querySelectorAll('.reveal');
+            reveals.forEach(el => {
+                const windowHeight = window.innerHeight;
+                const elementTop = el.getBoundingClientRect().top;
+                const elementVisible = 120;
+
+                if (elementTop < windowHeight - elementVisible) {
+                    el.classList.add('active');
+                }
+            });
+        }
+        window.addEventListener('scroll', revealElements);
+        window.addEventListener('load', revealElements); // Ejecutar al cargar la primera vez
+
+        // 4. ELEMENTO INTERACTIVO: CONTADOR Y GIRO 3D
+        const box = document.getElementById('box-interactiva');
+        const counterEl = document.getElementById('counter');
+        let count = 0;
+
+        box.addEventListener('mousemove', (e) => {
+            // Aumentar contador en base al movimiento
+            count += 1;
+            counterEl.innerText = count;
+
+            // Efecto de inclinación 3D
+            const { offsetX, offsetY, target } = e;
+            const { clientWidth, clientHeight } = box;
+            const xRotation = ((offsetY - clientHeight / 2) / clientHeight) * 25;
+            const yRotation = ((offsetX - clientWidth / 2) / clientWidth) * -25;
+            
+            box.style.transform = `perspective(800px) rotateX(${xRotation}deg) rotateY(${yRotation}deg)`;
+        });
+
+        box.style.transition = "transform 0.1s ease";
+        box.addEventListener('mouseleave', () => {
+            box.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg)';
+            box.style.transition = "transform 0.5s ease";
+        });
+
+        // 5. ENVÍO DEL FORMULARIO
+        document.getElementById('nexus-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const clientName = document.getElementById('name').value;
+            alert(`¡Gracias ${clientName}! Tu solicitud ha sido registrada en NexusPath. Un consultor tecnológico senior se comunicará contigo vía email.`);
+            this.reset();
+        });
+    </script>
+</body>
+</html>
